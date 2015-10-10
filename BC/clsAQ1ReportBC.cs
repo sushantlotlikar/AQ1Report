@@ -391,15 +391,6 @@ namespace AQ1Report.BC
                 shareStringPart = spreadsheetDocument.WorkbookPart.AddNewPart<SharedStringTablePart>();
             }
 
-            //string text = "Hello World";
-            //// Insert the text into the SharedStringTablePart.
-            //int index = clsOpenXmlBC.InsertSharedStringItem(text, shareStringPart);
-
-            //Cell cell;
-            //cell = InsertCellInWorksheet(worksheetPart, 1, "A");
-            //cell.CellValue = new CellValue(index.ToString());
-            //cell.DataType = new EnumValue<CellValues>(CellValues.SharedString);
-
             Console.WriteLine("");
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Creating output file....");
