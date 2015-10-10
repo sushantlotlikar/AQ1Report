@@ -405,7 +405,6 @@ namespace AQ1Report.BC
             clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "F", "Group Code", clsOpenXmlBC.CellDataTypeEnum.SharedString);
             clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "G", "Mtr Stat", clsOpenXmlBC.CellDataTypeEnum.SharedString);
             clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "H", "GAP", clsOpenXmlBC.CellDataTypeEnum.SharedString);
-            clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "I", "Meter Reading Entered", clsOpenXmlBC.CellDataTypeEnum.SharedString);
             clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "J", "Type", clsOpenXmlBC.CellDataTypeEnum.SharedString);
             clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "K", "Cut Date", clsOpenXmlBC.CellDataTypeEnum.SharedString);
             clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "L", "Cutoff Reason", clsOpenXmlBC.CellDataTypeEnum.SharedString);
@@ -455,8 +454,6 @@ namespace AQ1Report.BC
                 
                 if (detailRow.G_row1_GAP != "Meter")
                     clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "H", detailRow.G_row1_GAP.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);
-                if ((detailRow.G_row1_GAP == "Meter") && (detailRow.H_row1_CurrentDate == "Reading") && (detailRow.I_row1_PreviousDate == "Not Entered"))
-                    clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "I", "No", clsOpenXmlBC.CellDataTypeEnum.SharedString);
 
                 if ((detailRow.G_row1_GAP == "Meter") && (detailRow.H_row1_CurrentDate == "Reading") && (detailRow.I_row1_PreviousDate == "Not Entered"))
                     clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "J", "Meter Reading Not Entered", clsOpenXmlBC.CellDataTypeEnum.SharedString);
