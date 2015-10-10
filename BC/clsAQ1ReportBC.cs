@@ -341,7 +341,7 @@ namespace AQ1Report.BC
                         if (rowSubType == RowSubTypeEnum.DetailRow1)
                             objAQ1ReportRow.X_row1_CutDate = cellValue;
                         else if (rowSubType == RowSubTypeEnum.DetailRow2)
-                            objAQ1ReportRow.X_row2_UNKNOWN_FIELD_NAME = cellValue;
+                            objAQ1ReportRow.X_row2_Reason_Part2 = cellValue;
 
                         break;
                     case "Y": objAQ1ReportRow.Y_row1_Reason = cellValue; break;
@@ -409,7 +409,6 @@ namespace AQ1Report.BC
             clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "J", "Type", clsOpenXmlBC.CellDataTypeEnum.SharedString);
             clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "K", "Cut Date", clsOpenXmlBC.CellDataTypeEnum.SharedString);
             clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "L", "Cutoff Reason", clsOpenXmlBC.CellDataTypeEnum.SharedString);
-            clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "M", "UNKNOWN_FIELD_NAME", clsOpenXmlBC.CellDataTypeEnum.SharedString);
             clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "N", "Current Date", clsOpenXmlBC.CellDataTypeEnum.SharedString);
             clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "O", "Current Reading", clsOpenXmlBC.CellDataTypeEnum.SharedString);
             clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "P", "Previous Date", clsOpenXmlBC.CellDataTypeEnum.SharedString);
@@ -458,8 +457,7 @@ namespace AQ1Report.BC
                     clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "I", "No", clsOpenXmlBC.CellDataTypeEnum.SharedString);
                 clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "J", "PENDING", clsOpenXmlBC.CellDataTypeEnum.SharedString);
                 clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "K", detailRow.X_row1_CutDate.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);
-                clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "L", detailRow.Y_row1_Reason.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);
-                clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "M", detailRow.X_row2_UNKNOWN_FIELD_NAME.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);
+                clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "L", detailRow.Y_row1_Reason.ToString() + " " + detailRow.X_row2_Reason_Part2.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);
                 clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "N", detailRow.H_row1_CurrentDate.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);
                 clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "O", detailRow.H_row2_CurrentRdg.ToString(), clsOpenXmlBC.CellDataTypeEnum.Number);
                 clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "P", detailRow.I_row1_PreviousDate.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);

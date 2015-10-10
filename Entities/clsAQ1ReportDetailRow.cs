@@ -40,7 +40,7 @@ namespace AQ1Report.Entities
         public string V_row1_GroupCode = "";
         public string W_row1_RateCharge = "";
         public string X_row1_CutDate = "";
-        public string X_row2_UNKNOWN_FIELD_NAME = "";
+        public string X_row2_Reason_Part2 = "";
         public string Y_row1_Reason = "";
 
         public clsAQ1ReportDetailRow(clsAQ1ReportHeaderRow headerRow, UInt32 excelRowNo)
@@ -83,7 +83,7 @@ namespace AQ1Report.Entities
             Console.Write("Group Code: " + this.V_row1_GroupCode + ", ");
             Console.Write("Rate Charge: " + this.W_row1_RateCharge + ", ");
             Console.Write("Cut Date: " + this.X_row1_CutDate + ", ");
-            Console.Write("Cut Date-Row2: " + this.X_row2_UNKNOWN_FIELD_NAME + ", ");
+            Console.Write("Cut Date-Row2: " + this.X_row2_Reason_Part2 + ", ");
             Console.WriteLine("Reason: " + this.Y_row1_Reason);
             Console.WriteLine("");
         }
