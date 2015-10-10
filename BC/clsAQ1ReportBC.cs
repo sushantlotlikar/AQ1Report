@@ -452,15 +452,18 @@ namespace AQ1Report.BC
                 clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "E", detailRow.C_row1_CCNStat.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);
                 clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "F", detailRow.V_row1_GroupCode.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);
                 clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "G", detailRow.F_row1_MtrStat.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);
-                clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "H", detailRow.G_row1_GAP.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);
+                if (detailRow.G_row1_GAP != "Meter")
+                    clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "H", detailRow.G_row1_GAP.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);
                 if ((detailRow.G_row1_GAP == "Meter") && (detailRow.H_row1_CurrentDate == "Reading") && (detailRow.I_row1_PreviousDate == "Not Entered"))
                     clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "I", "No", clsOpenXmlBC.CellDataTypeEnum.SharedString);
                 clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "J", "PENDING", clsOpenXmlBC.CellDataTypeEnum.SharedString);
                 clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "K", detailRow.X_row1_CutDate.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);
                 clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "L", detailRow.Y_row1_Reason.ToString() + " " + detailRow.X_row2_Reason_Part2.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);
-                clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "N", detailRow.H_row1_CurrentDate.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);
+                if (detailRow.H_row1_CurrentDate != "Reading")
+                    clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "N", detailRow.H_row1_CurrentDate.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);
                 clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "O", detailRow.H_row2_CurrentRdg.ToString(), clsOpenXmlBC.CellDataTypeEnum.Number);
-                clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "P", detailRow.I_row1_PreviousDate.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);
+                if (detailRow.I_row1_PreviousDate != "Not Entered")
+                    clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "P", detailRow.I_row1_PreviousDate.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);
                 clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "Q", detailRow.I_row2_PreviousRdg.ToString(), clsOpenXmlBC.CellDataTypeEnum.Number);
                 clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "R", detailRow.W_row1_RateCharge.ToString(), clsOpenXmlBC.CellDataTypeEnum.Number);
                 clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "S", detailRow.J_row1_CutRemvDt.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);
