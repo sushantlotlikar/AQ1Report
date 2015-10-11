@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AQ1Report.BC;
+﻿using AQ1Report.BC;
+using System;
 
 namespace AQ1Report
 {

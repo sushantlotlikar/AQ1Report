@@ -1,10 +1,9 @@
-﻿using DocumentFormat.OpenXml;
+﻿using AQ1Report.Utils;
+using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System;
-using System.IO;
 using System.Linq;
-using AQ1Report.Utils;
 
 
 namespace AQ1Report.BC
