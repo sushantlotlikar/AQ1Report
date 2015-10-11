@@ -53,22 +53,6 @@ namespace AQ1Report.BC
                     SharedStringTablePart sstpart = workbookPart.GetPartsOfType<SharedStringTablePart>().First();
                     SharedStringTable sst = sstpart.SharedStringTable;
 
-                    //WorksheetPart worksheetPart = workbookPart.WorksheetParts.First();
-                    //Worksheet sheet = worksheetPart.Worksheet;
-
-                    //Console.WriteLine("sheet.LocalName: " + sheet.LocalName);
-                    //Console.WriteLine("sheet.LocalName: " + sheet.GetAttribute("name", "").ToString());
-
-                    //ReadAQ1ExcelWorkSheet(sheet, sst);
-
-
-                    //Worksheet sheet;
-                    //foreach (WorksheetPart worksheetPart in workbookPart.WorksheetParts)
-                    //{
-                    //    sheet = worksheetPart.Worksheet;
-                    //    ReadAQ1ExcelWorkSheet(sheet, sst);
-                    //}
-
                     WorkbookPart wbp = doc.WorkbookPart;
                     Sheets sheets = wbp.Workbook.Sheets;
                     WorksheetPart wsp;
@@ -85,11 +69,6 @@ namespace AQ1Report.BC
                     {
                         sheetNo++;
 
-                        //if (sheetNo <= 22) continue;
-
-                        //Console.WriteLine("ID: " + item.Id + " | " + item.Name);
-                        //sheet = doc.WorkbookPart.WorksheetParts.
-
                         wsp = (WorksheetPart)wbp.GetPartById(item.Id);
                         ws = wsp.Worksheet;
 
@@ -98,8 +77,6 @@ namespace AQ1Report.BC
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
                         Console.WriteLine("DONE!");
                         Console.ResetColor();
-
-                        //if (sheetNo == 2) break;
                     }
 
                     return detailRows;
@@ -127,8 +104,6 @@ namespace AQ1Report.BC
 
             foreach (Row row in rows)
             {
-                //Console.WriteLine("Row " + row.RowIndex.ToString() + " of " + rowCount.ToString());
-
                 SetRowTypeSubType(ref rowType, ref rowSubType, row, rowCount, sst);
                 Debug.WriteLine("\t" + "rowType: " + rowType.ToString() + ", rowSubType: " + rowSubType.ToString());
 
@@ -155,17 +130,6 @@ namespace AQ1Report.BC
                     default:
                         throw new Exception("UNKNOWN Row Type");
                 }
-
-
-                //if ((row.RowIndex <= 8) || (rowSubType == RowSubTypeEnum.FooterRow1) || (rowSubType == RowSubTypeEnum.FooterRow2) || (rowSubType == RowSubTypeEnum.FooterRow3)) { continue; } //Header Rows OR Footer Rows
-
-                //if (rowSubType == RowSubTypeEnum.DetailRow1)
-                //{
-                //    detailRow = new clsAQ1ReportDetailRow(headerRow, row.RowIndex);
-                //    detailRows.Add(detailRow);
-                //}
-
-                //if ((rowSubType == RowSubTypeEnum.DetailRow1) || (rowSubType == RowSubTypeEnum.DetailRow2)) PopulateAQ1DetailRow(sst, detailRow, rowSubType, row);
             }
         }
 
@@ -224,7 +188,6 @@ namespace AQ1Report.BC
             else
             {
                 Cell cell = row.Elements<Cell>().ElementAt(0);
-                //string cellColumn = cell.CellReference.ToString().Substring(0, 1);
                 string cellColumn = clsOpenXmlBC.GetExcelColumnName(cell.CellReference.ToString());
                 string cellValue = clsOpenXmlBC.GetCellValue(cell, sst);
                 Debug.WriteLine("\t" + "cell.CellReference" + cell.CellReference.ToString() + ", cellColumn: " + cellColumn + ", cellValue: " + cellValue);
@@ -291,12 +254,8 @@ namespace AQ1Report.BC
 
             foreach (Cell c in row.Elements<Cell>())
             {
-                //Console.Write(c.CellReference + "~");
-
                 cellValue = clsOpenXmlBC.GetCellValue(c, sst);
-                //Console.Write(cellValue + ", ");
 
-                //column = c.CellReference.ToString().Substring(0, 1);
                 column = clsOpenXmlBC.GetExcelColumnName(c.CellReference.ToString());
                 Debug.WriteLine("\t" + "CellReference: " + c.CellReference.ToString() + ", column: " + column);
 
@@ -439,8 +398,6 @@ namespace AQ1Report.BC
 
             foreach (clsAQ1ReportDetailRow detailRow in AQ1ReportDetailRows)
             {
-                //detailRow.WriteToConsole(); continue;
-
                 Console.Write("Writing row no " + rowIndex.ToString() + " of " + AQ1ReportDetailRows.Count.ToString() + "....");
                 rowIndex++;
 
