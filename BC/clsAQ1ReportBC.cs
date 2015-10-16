@@ -30,6 +30,13 @@ namespace AQ1Report.BC
             DetailRow1, DetailRow2,
             FooterRow1, FooterRow2, FooterRow3
         }
+
+        private enum TypeEnum
+        {
+            UNKNOWN_TYPE,
+            METER_READING_NOT_ENTERED,
+            PERMANENTLY_CLOSED
+        }
         #endregion
 
         public static void ProcessAQ1Excel(string inputFileName, string outputFileName)
@@ -201,7 +208,8 @@ namespace AQ1Report.BC
                     rowType = RowTypeEnum.FooterRow;
                     rowSubType = RowSubTypeEnum.FooterRow1;
                 }
-                else if ((cellColumn == "B") && (cellValue == "Total Meter Readings Not Entered"))
+                else if (((cellColumn == "B") && (cellValue == "Total Meter Readings Not Entered"))
+                    || ((cellColumn == "A") && (cellValue == "Total Meter Readings Not Entered")))
                 {
                     rowType = RowTypeEnum.FooterRow;
                     rowSubType = RowSubTypeEnum.FooterRow2;
@@ -396,10 +404,18 @@ namespace AQ1Report.BC
             clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "AL", "CCN 10", clsOpenXmlBC.CellDataTypeEnum.SharedString);
             clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "AM", "Flag", clsOpenXmlBC.CellDataTypeEnum.SharedString);
 
+            TypeEnum type = TypeEnum.UNKNOWN_TYPE;
             foreach (clsAQ1ReportDetailRow detailRow in AQ1ReportDetailRows)
             {
                 Console.Write("Writing row no " + rowIndex.ToString() + " of " + AQ1ReportDetailRows.Count.ToString() + "....");
                 rowIndex++;
+
+                type = TypeEnum.UNKNOWN_TYPE;
+                if ((detailRow.G_row1_GAP == "Meter") && (detailRow.H_row1_CurrentDate == "Reading") && (detailRow.I_row1_PreviousDate == "Not Entered"))
+                    type = TypeEnum.METER_READING_NOT_ENTERED;
+                else if ((detailRow.H_row1_CurrentDate == "Permanently") && (detailRow.I_row1_PreviousDate == "Closed"))
+                    type = TypeEnum.PERMANENTLY_CLOSED;
+
 
                 clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "A", detailRow.HeaderRow.MeterBinderNo.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);
                 clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "B", detailRow.A_row1_Folio.ToString(), clsOpenXmlBC.CellDataTypeEnum.Number);
@@ -409,23 +425,23 @@ namespace AQ1Report.BC
                 clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "F", detailRow.V_row1_GroupCode.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);
                 clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "G", detailRow.F_row1_MtrStat.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);
                 
-                if (detailRow.G_row1_GAP != "Meter")
+                if (type != TypeEnum.METER_READING_NOT_ENTERED)
                     clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "H", detailRow.G_row1_GAP.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);
 
-                if ((detailRow.G_row1_GAP == "Meter") && (detailRow.H_row1_CurrentDate == "Reading") && (detailRow.I_row1_PreviousDate == "Not Entered"))
+                if (type == TypeEnum.METER_READING_NOT_ENTERED)
                     clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "I", "Meter Reading Not Entered", clsOpenXmlBC.CellDataTypeEnum.SharedString);
-                else if ((detailRow.H_row1_CurrentDate == "Permanently") && (detailRow.I_row1_PreviousDate == "Closed"))
+                else if (type == TypeEnum.PERMANENTLY_CLOSED)
                     clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "I", "Permanently Cutoff", clsOpenXmlBC.CellDataTypeEnum.SharedString); clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "K", detailRow.X_row1_CutDate.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);
 
                 clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "J", detailRow.X_row1_CutDate.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);
                 clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "K", detailRow.Y_row1_Reason.ToString() + " " + detailRow.X_row2_Reason_Part2.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);
 
-                if ((detailRow.H_row1_CurrentDate != "Reading") && (detailRow.H_row1_CurrentDate != "Permanently"))
+                if ((type != TypeEnum.METER_READING_NOT_ENTERED) && (type != TypeEnum.PERMANENTLY_CLOSED))
                     clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "L", detailRow.H_row1_CurrentDate.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);
 
                 clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "M", detailRow.H_row2_CurrentRdg.ToString(), clsOpenXmlBC.CellDataTypeEnum.Number);
                 
-                if ((detailRow.I_row1_PreviousDate != "Not Entered") && (detailRow.I_row1_PreviousDate != "Closed"))
+                if ((type != TypeEnum.METER_READING_NOT_ENTERED) && (type != TypeEnum.PERMANENTLY_CLOSED))
                     clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "N", detailRow.I_row1_PreviousDate.ToString(), clsOpenXmlBC.CellDataTypeEnum.SharedString);
 
                 clsOpenXmlBC.SetCell(shareStringPart, worksheetPart, rowIndex, "O", detailRow.I_row2_PreviousRdg.ToString(), clsOpenXmlBC.CellDataTypeEnum.Number);
